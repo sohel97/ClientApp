@@ -21,6 +21,13 @@ String sNotes = "ملاحظات";
 String sPassword = 'كلمة المرور';
 String sExpiredUsers = "اشتراكات منتهية";
 String sAboutToExpiredUsers = "اشتراكات قاربت على الانتهاء";
+String sDayOne = 'اليوم الاول';
+String sDayTwo = 'اليوم الثاني';
+String sDayThree = 'اليوم الثالث';
+String sDayFour = 'اليوم الرابع';
+String sDayFive = 'اليوم الخامس';
+String sDaySix = 'اليوم السادس';
+String sDaySeven = 'اليوم السابع';
 
 /// ****************************Validators Strings******************************/
 String sPleaseEnterText = "الرجاء تعبئة الخانة";
@@ -43,8 +50,9 @@ String sDeleteUserData = "ازالة بيانات المستخدم";
 /// ***************************Pages Strings************************************/
 String sAppName = 'كنتري التوت';
 String sHomePage = 'الرئيسية';
-String sMembers = 'الاشتراكات';
-String sAddMember = 'اضافة مشترك';
+String sTrainingSchedule = 'برنامج تمارين';
+String sCoupons = 'كوبونات';
+String sPersonalInformation = 'معلومات شخصية';
 
 /// ************************Personal info Strings*******************************/
 String sGender = "الجنس";

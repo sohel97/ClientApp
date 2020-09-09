@@ -19,7 +19,7 @@ class Member {
   List<PaymentRecord> paymentRecords;
   int currentBalance = 0;
   bool healthCareApproval;
-  String BMI;
+  String bmi;
   int earnedCredits;
 
   Member() {

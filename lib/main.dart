@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:membership_card/screens/EarnedCridts.dart';
 import 'package:membership_card/screens/ProfilePage.dart';
+import 'package:membership_card/screens/TrainingExrecisesPage.dart';
+import 'package:membership_card/strings.dart';
 
 void main() {
   runApp(new MyApp());
@@ -10,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Generated App',
+      title: sPersonalInformation,
       theme: new ThemeData.dark(),
       home: new MyHomePage(),
     );
@@ -33,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _children = [
     Container(),
-    Container(),
+    TrainingExercisesPage(),
     EarnedCridts(),
     ProfilePage(),
   ];
@@ -43,9 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'كنتري التوت',
+          sAppName,
           textDirection: TextDirection.rtl,
         ),
+        centerTitle: true,
       ),
       body: _children[_selectedIndex],
       bottomNavigationBar: new BottomNavigationBar(
@@ -55,15 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
           items: [
             new BottomNavigationBarItem(
               icon: const Icon(Icons.home),
-              title: new Text('الرئيسية'),
+              title: new Text(sHomePage),
             ),
             new BottomNavigationBarItem(
               icon: const Icon(Icons.fitness_center),
-              title: new Text('برنامج تمارين'),
+              title: new Text(sTrainingSchedule),
             ),
             new BottomNavigationBarItem(
               icon: const Icon(Icons.redeem),
-              title: new Text('كوبونات'),
+              title: new Text(sCoupons),
             ),
             // new BottomNavigationBarItem(
             //   icon: const Icon(Icons.payment),
@@ -71,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // ), TODO:: Implement later
             new BottomNavigationBarItem(
               icon: const Icon(Icons.perm_identity),
-              title: new Text('معلومات شخصية'),
+              title: new Text(sPersonalInformation),
             ),
           ]),
     );

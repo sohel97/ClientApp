@@ -299,7 +299,7 @@ class MapScreenState extends State<ProfilePage> {
                 textBaseline: TextBaseline.alphabetic,
                 children: <Widget>[
                   Text(
-                    member.BMI,
+                    member.bmi,
                     style: kNumberTextStyle,
                   ),
                 ],
@@ -313,13 +313,13 @@ class MapScreenState extends State<ProfilePage> {
   }
 
   calculateBMI() {
-    member.BMI =
+    member.bmi =
         (member.currentWeight / ((member.height / 100) * (member.height / 100)))
             .toStringAsFixed(1);
   }
 
   getBMIMessage() {
-    double bmi = double.parse(member.BMI);
+    double bmi = double.parse(member.bmi);
     if (bmi <= 18.5) {
       return Text(
         'Underweight',
