@@ -88,49 +88,41 @@ List<List<Workout>> getWorkoutPlanFromFirebase() {
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayOne.add(Workout(
       title: 'صدر علوي',
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
 
   List<Workout> dayTwo = new List<Workout>();
   dayTwo.add(Workout(
@@ -138,7 +130,6 @@ List<List<Workout>> getWorkoutPlanFromFirebase() {
       content: '',
       gifPath: 'assets/images/workout.gif',
       ribs: '10,10,10'));
-  plan.add(dayOne);
   dayTwo.add(Workout(
       title: 'صدر علوي',
       content: '',
@@ -146,5 +137,10 @@ List<List<Workout>> getWorkoutPlanFromFirebase() {
       ribs: '10,10,10'));
   plan.add(dayOne);
   plan.add(dayTwo);
+  plan.add(new List<Workout>());
+  plan.add(new List<Workout>());
+  plan.add(new List<Workout>());
+  plan.add(new List<Workout>());
+  plan.add(new List<Workout>());
   return plan;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:membership_card/components/ListTile_card.dart';
+import 'package:membership_card/components/showWorkoutAlert.dart';
 import 'package:membership_card/entities/Workout.dart';
 
 class WorkoutCard extends StatelessWidget {
@@ -8,11 +9,19 @@ class WorkoutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTileCard(
-      img: workout.gifPath,
-      title: workout.title,
-      content: workout.content,
-      leftNote: workout.ribs,
+    return InkWell(
+      onTap: () {
+        showWorkoutAlert(
+          context: context,
+          img: workout.gifPath,
+        );
+      },
+      child: ListTileCard(
+        img: workout.gifPath,
+        title: workout.title,
+        content: workout.content,
+        leftNote: workout.ribs,
+      ),
     );
   }
 }

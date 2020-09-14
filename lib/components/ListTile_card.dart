@@ -28,7 +28,6 @@ class ListTileCard extends StatelessWidget {
                 //TODO: change if needed for firebase use
                 leading: Image.asset(
                   img,
-                  height: 150.0,
                 ),
                 title: new Text(title),
                 subtitle: new Text(content),
