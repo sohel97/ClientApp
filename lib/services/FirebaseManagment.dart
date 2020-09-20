@@ -1,3 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:membership_card/components/Alert.dart';
 import 'package:membership_card/entities/Coupon.dart';
 import 'package:membership_card/entities/Member.dart';
 import 'package:membership_card/entities/Workout.dart';
@@ -17,6 +22,25 @@ import 'package:membership_card/entities/Workout.dart';
 |  31-Aug-20 Alpha    Sohel   $$1     Created
 |
 /---------------------------------------------------------------------------- */
+enum PhoneChecked { CUSTOMER_NOT_FOUND, CUSTOMER_FOUND, IVALID_NUMBER, SUCCESS }
+final ref = FirebaseDatabase().reference().child("Customers");
+Future<String> checkPhoneNumber(
+    String phoneNumber, BuildContext context) async {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  return ref
+      .orderByChild("phoneNumber")
+      .equalTo(phoneNumber)
+      .once()
+      .then((DataSnapshot snapshot) {
+    if (snapshot.value != null) {
+      Map<String, dynamic> mapOfMaps = Map.from(snapshot.value);
+      var auth = FirebaseAuth.instance;
+      return mapOfMaps.keys.toList()[0];
+    }
+    showAlertDialog(context, "User Not Found!");
+    return "";
+  });
+}
 
 void saveChangesToFireBase() {
   //TODO:
