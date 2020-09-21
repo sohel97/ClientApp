@@ -9,17 +9,20 @@ import 'package:membership_card/services/FirebaseManagment.dart';
 import '../constants.dart';
 
 class ProfilePage extends StatefulWidget {
+  ProfilePage({Key key, this.userJsn}) : super(key: key);
+  MapEntry<String, dynamic> userJsn;
   @override
   MapScreenState createState() => MapScreenState();
 }
 
 class MapScreenState extends State<ProfilePage> {
   bool editInfoFlag = false;
-  Member member = getMemberInfoFromFirebase();
+  Member member;
 
   @override
   void initState() {
     // TODO: implement initState
+    member = Member.fromMember(widget.userJsn.value);
     super.initState();
   }
 

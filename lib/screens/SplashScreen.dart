@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:membership_card/main.dart';
+import 'package:membership_card/services/FirebaseManagment.dart';
 
 import 'MyHomePage.dart';
 
@@ -17,11 +18,26 @@ class _SplashPageState extends State<SplashPage> {
   initState() {
     super.initState();
 
-    new Future.delayed(const Duration(seconds: 2), () => checkUser());
+    if (currentUser == null) {
+      new Future.delayed(const Duration(seconds: 2),
+          () => Navigator.pushReplacementNamed(context, "/login"));
+    } else
+      checkPhoneNumber(currentUser.phoneNumber, context)
+          .then((MapEntry<String, dynamic> userJsn) {
+        if (userJsn != null && userJsn.value["freezedDays"] == 0) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => MyHomePage(userJsn: userJsn)));
+        } else {
+          FirebaseAuth.instance.signOut();
+          Navigator.pushReplacementNamed(context, "/login");
+        }
+      });
+    //new Future.delayed(const Duration(seconds: 2), () => checkUser());
   }
 
   checkUser() {
     //FirebaseAuth.instance.signOut();
+
     if (currentUser == null) {
       Navigator.pushReplacementNamed(context, "/login");
     } else {

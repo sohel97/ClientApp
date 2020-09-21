@@ -7,6 +7,8 @@ import 'package:membership_card/entities/Coupon.dart';
 import 'package:membership_card/entities/Member.dart';
 import 'package:membership_card/services/FirebaseManagment.dart';
 
+import 'MyHomePage.dart';
+
 class SignIn extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
@@ -41,23 +43,26 @@ class MapScreenState extends State<SignIn> {
                 RaisedButton(
                   child: Text("Verify"),
                   onPressed: () {
-                    checkPhoneNumber(phoneNumber, context).then((idNumber) {
-                      if (idNumber != "") {
+                    checkPhoneNumber(phoneNumber, context)
+                        .then((MapEntry<String, dynamic> userJsn) {
+                      if (userJsn != null &&
+                          userJsn.value["freezedDays"] == 0) {
                         var auth = FirebaseAuth.instance;
                         auth.verifyPhoneNumber(
                           phoneNumber: phoneNumber,
                           timeout: const Duration(seconds: 5),
                           verificationCompleted:
                               (PhoneAuthCredential credential) async {
-                            //UNCOMMENT WHEN TESTING ON REAL PHONE
-/*
-                            await auth.signInWithCredential(credential);
-                            ref.child(idNumber).update({
-                              "verificationId": credential.verificationId,
-                              "smsCode": credential.smsCode
+                            await auth
+                                .signInWithCredential(credential)
+                                .then((value) {
+                              print("success!");
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MyHomePage(userJsn: userJsn)));
                             });
-*/
-                            print("success!");
                           },
                           verificationFailed: (FirebaseAuthException e) {
                             print(e.toString());
@@ -66,32 +71,12 @@ class MapScreenState extends State<SignIn> {
                             showAlertDialog(context, message);
                           },
                           codeSent:
-                              (String verificationId, int resendToken) async {
-                            //COMMENT WHEN TESTING ON REAL PHONE
-                            String smsCode = '123456';
-
-                            // Create a PhoneAuthCredential with the code
-                            PhoneAuthCredential phoneAuthCredential =
-                                PhoneAuthProvider.credential(
-                                    verificationId: verificationId,
-                                    smsCode: smsCode);
-
-                            // Sign the user in (or link) with the credential
-
-                            await auth
-                                .signInWithCredential(phoneAuthCredential)
-                                .then((UserCredential cred) {
-                              if (cred == null)
-                                showAlertDialog(context, message);
-                            });
-                            ref.child(idNumber).update({
-                              "verificationId": verificationId,
-                              "smsCode": smsCode
-                            });
-                            print("good");
-                          },
+                              (String verificationId, int resendToken) async {},
                           codeAutoRetrievalTimeout: (String verificationId) {},
                         );
+                      } else {
+                        message = "The Account Does Not Exist Or Frozen";
+                        showAlertDialog(context, message);
                       }
                     });
                   },

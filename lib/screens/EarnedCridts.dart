@@ -6,6 +6,8 @@ import 'package:membership_card/entities/Member.dart';
 import 'package:membership_card/services/FirebaseManagment.dart';
 
 class EarnedCridts extends StatefulWidget {
+  EarnedCridts({Key key, this.userJsn}) : super(key: key);
+  MapEntry<String, dynamic> userJsn;
   @override
   MapScreenState createState() => MapScreenState();
 }
@@ -15,7 +17,7 @@ class MapScreenState extends State<EarnedCridts> {
   @override
   void initState() {
     coupons = getCouponsFromFirebase();
-    member = getMemberInfoFromFirebase();
+    member = Member.fromMember(widget.userJsn.value);
     // TODO: implement initState
     super.initState();
   }

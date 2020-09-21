@@ -7,25 +7,33 @@ import 'ProfilePage.dart';
 import 'TrainingExrecisesPage.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key key, this.userJsn}) : super(key: key);
+  MapEntry<String, dynamic> userJsn;
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
+  static MapEntry<String, dynamic> userJsn;
+  static List<Widget> _children;
+  void initState() {
+    super.initState();
+    userJsn = widget.userJsn;
+    _children = [
+      Container(),
+      TrainingExercisesPage(userJsn: userJsn),
+      EarnedCridts(userJsn: userJsn),
+      ProfilePage(userJsn: userJsn),
+    ];
+    print(userJsn);
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-
-  final List<Widget> _children = [
-    Container(),
-    TrainingExercisesPage(),
-    EarnedCridts(),
-    ProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {

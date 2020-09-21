@@ -1,3 +1,5 @@
+import 'dart:math';
+
 enum Gender {
   male,
   female,
@@ -50,6 +52,7 @@ class Member {
     this.idNumber = json["idNumber"];
     this.currentBalance = json["currentBalance"];
     this.healthCareApproval = json["healthCareApproval"];
+    this.bmi = (currentWeight / pow(height, 2)).toDouble().toString();
     var records = json["records"];
     Map<String, dynamic> mapOfMaps = Map.from(records);
 

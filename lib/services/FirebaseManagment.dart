@@ -24,7 +24,7 @@ import 'package:membership_card/entities/Workout.dart';
 /---------------------------------------------------------------------------- */
 enum PhoneChecked { CUSTOMER_NOT_FOUND, CUSTOMER_FOUND, IVALID_NUMBER, SUCCESS }
 final ref = FirebaseDatabase().reference().child("Customers");
-Future<String> checkPhoneNumber(
+Future<MapEntry<String, dynamic>> checkPhoneNumber(
     String phoneNumber, BuildContext context) async {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   return ref
@@ -35,10 +35,11 @@ Future<String> checkPhoneNumber(
     if (snapshot.value != null) {
       Map<String, dynamic> mapOfMaps = Map.from(snapshot.value);
       var auth = FirebaseAuth.instance;
-      return mapOfMaps.keys.toList()[0];
+      //print(mapOfMaps.entries.toList()[0].runtimeType);
+      return mapOfMaps.entries.toList()[0];
     }
-    showAlertDialog(context, "User Not Found!");
-    return "";
+    //showAlertDialog(context, "User Not Found!");
+    return null;
   });
 }
 

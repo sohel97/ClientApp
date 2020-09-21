@@ -8,6 +8,8 @@ import 'package:membership_card/services/FirebaseManagment.dart';
 import 'package:membership_card/strings.dart';
 
 class TrainingExercisesPage extends StatefulWidget {
+  TrainingExercisesPage({Key key, this.userJsn}) : super(key: key);
+  MapEntry<String, dynamic> userJsn;
   @override
   MapScreenState createState() => MapScreenState();
 }
@@ -20,6 +22,7 @@ class MapScreenState extends State<TrainingExercisesPage> {
   List<Workout> selectedDay = null;
   @override
   void initState() {
+    member = Member.fromMember(widget.userJsn.value);
     days = [
       sDayOne,
       sDayTwo,
