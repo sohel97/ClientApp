@@ -58,10 +58,9 @@ class MapScreenState extends State<SignIn> {
                                 .then((value) {
                               print("success!");
                               Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          MyHomePage(userJsn: userJsn)));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyHomePage(userJsn: userJsn)));
                             });
                           },
                           verificationFailed: (FirebaseAuthException e) {

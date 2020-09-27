@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   initState() {
     super.initState();
-
+    //FirebaseAuth.instance.signOut();
     if (currentUser == null) {
       new Future.delayed(const Duration(seconds: 2),
           () => Navigator.pushReplacementNamed(context, "/login"));
@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
       checkPhoneNumber(currentUser.phoneNumber, context)
           .then((MapEntry<String, dynamic> userJsn) {
         if (userJsn != null && userJsn.value["freezedDays"] == 0) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => MyHomePage(userJsn: userJsn)));
         } else {
           FirebaseAuth.instance.signOut();
