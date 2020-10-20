@@ -10,18 +10,18 @@ import 'package:membership_card/services/FirebaseManagment.dart';
 import 'MyHomePage.dart';
 
 class SignIn extends StatefulWidget {
+  static Member member;
   @override
   MapScreenState createState() => MapScreenState();
 }
 
 class MapScreenState extends State<SignIn> {
-  Member member;
   String phoneNumber;
   String message = "";
   @override
   void initState() {
     coupons = getCouponsFromFirebase();
-    member = getMemberInfoFromFirebase();
+    SignIn.member = getMemberInfoFromFirebase();
 
     // TODO: implement initState
     super.initState();
@@ -47,6 +47,8 @@ class MapScreenState extends State<SignIn> {
                         .then((MapEntry<String, dynamic> userJsn) {
                       if (userJsn != null &&
                           userJsn.value["freezedDays"] == 0) {
+                        print(userJsn);
+                        SignIn.member = Member.fromMember(userJsn.value);
                         var auth = FirebaseAuth.instance;
                         auth.verifyPhoneNumber(
                           phoneNumber: phoneNumber,
@@ -70,7 +72,14 @@ class MapScreenState extends State<SignIn> {
                             showAlertDialog(context, message);
                           },
                           codeSent:
-                              (String verificationId, int resendToken) async {},
+                              (String verificationId, int resendToken) async {
+                            print("success!");
+
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    MyHomePage(userJsn: userJsn)));
+                          },
                           codeAutoRetrievalTimeout: (String verificationId) {},
                         );
                       } else {

@@ -6,6 +6,8 @@ import 'package:membership_card/components/Alert.dart';
 import 'package:membership_card/entities/Coupon.dart';
 import 'package:membership_card/entities/Member.dart';
 import 'package:membership_card/entities/Workout.dart';
+import 'package:membership_card/entities/WorkoutPlan.dart';
+import 'package:membership_card/screens/SignIn.dart';
 
 /*----------------------------------------------------------------------------\
 |
@@ -105,67 +107,33 @@ List<Coupon> getCouponsFromFirebase() {
 }
 
 //TODO NOTE retrun at least one empty elemnt to prevent crash.
-List<List<Workout>> getWorkoutPlanFromFirebase() {
-  List<List<Workout>> plan = new List<List<Workout>>();
-  List<Workout> dayOne = new List<Workout>();
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayOne.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
+Future<WorkoutPlan> getWorkoutPlanFromFirebase() {
+  return FirebaseDatabase()
+      .reference()
+      .child("Planners")
+      .child("Customers")
+      .child(SignIn.member.idNumber)
+      .child("plansHistory")
+      .orderByChild("currentPlan")
+      .equalTo(true)
+      .limitToFirst(1)
+      .once()
+      .then((DataSnapshot snapshot) {
+    WorkoutPlan plan = new WorkoutPlan();
+    if (snapshot.value != null) {
+      print("hiiiiii");
 
-  List<Workout> dayTwo = new List<Workout>();
-  dayTwo.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  dayTwo.add(Workout(
-      title: 'صدر علوي',
-      content: '',
-      gifPath: 'assets/images/workout.gif',
-      ribs: '10,10,10'));
-  plan.add(dayOne);
-  plan.add(dayTwo);
-  plan.add(new List<Workout>());
-  plan.add(new List<Workout>());
-  plan.add(new List<Workout>());
-  plan.add(new List<Workout>());
-  plan.add(new List<Workout>());
-  return plan;
+      Map<String, dynamic> mapOfMaps = Map.from(snapshot.value);
+
+      mapOfMaps.forEach((key, value) {
+        print(key);
+        print(WorkoutPlan.getFromJson(Map.from(value), key)
+            .dayOne
+            .workouts[0]
+            .iconpic);
+        plan = WorkoutPlan.getFromJson(Map.from(value), key);
+      });
+    }
+    return plan;
+  });
 }

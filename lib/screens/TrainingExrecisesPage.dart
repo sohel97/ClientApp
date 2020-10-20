@@ -4,6 +4,7 @@ import 'package:membership_card/components/workout_card.dart';
 import 'package:membership_card/entities/Coupon.dart';
 import 'package:membership_card/entities/Member.dart';
 import 'package:membership_card/entities/Workout.dart';
+import 'package:membership_card/entities/WorkoutPlan.dart';
 import 'package:membership_card/services/FirebaseManagment.dart';
 import 'package:membership_card/strings.dart';
 
@@ -18,10 +19,10 @@ class MapScreenState extends State<TrainingExercisesPage> {
   Member member;
   int dayIndex = 0;
   var days;
-  List<List<Workout>> workouts;
+  WorkoutPlan workoutPlan;
   List<Workout> selectedDay = null;
   @override
-  void initState() {
+  initState() {
     member = Member.fromMember(widget.userJsn.value);
     days = [
       sDayOne,
@@ -32,45 +33,64 @@ class MapScreenState extends State<TrainingExercisesPage> {
       sDaySix,
       sDaySeven
     ];
-    workouts = getWorkoutPlanFromFirebase();
-    member = getMemberInfoFromFirebase();
+
     // TODO: implement initState
     super.initState();
+  }
+
+  Future<WorkoutPlan> getWorkout() async {
+    return await getWorkoutPlanFromFirebase();
   }
 
   List<Coupon> coupons;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: <Widget>[
-        SizedBox(
-          height: 50,
-          child: ListView(
-            reverse: true,
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              for (int i = 0; i < 7; i++)
-                FlatButton(
-                  onPressed: () {
-                    setState(() {
-                      dayIndex = i;
-                    });
-                  },
-                  color: i % 2 == 0 ? Colors.black26 : Colors.black45,
-                  child: Text(
-                    days[i],
-                  ),
-                ),
-            ],
-          ),
-        ),
-        Expanded(
-            //TODO Change the WorkoutList class with list view builder and check the changes
-            child: new WorkoutList(
-          workouts: workouts.elementAt(dayIndex),
-        )),
-      ],
-    ));
+        body: FutureBuilder(
+            future: getWorkoutPlanFromFirebase(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  print(snapshot);
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 50,
+                        child: ListView(
+                          reverse: true,
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            for (int i = 0; i < 7; i++)
+                              FlatButton(
+                                onPressed: () {
+                                  setState(() {
+                                    dayIndex = i;
+                                  });
+                                },
+                                color: i % 2 == 0
+                                    ? Colors.black26
+                                    : Colors.black45,
+                                child: Text(
+                                  days[i],
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+
+                          //TODO Change the WorkoutList class with list view builder and check the changes
+                          child: new WorkoutList(
+                        workoutDay: snapshot.data.dayOne,
+                      )),
+                    ],
+                  );
+                case ConnectionState.none:
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                default:
+                  return new Column();
+              }
+            }));
   }
 }
