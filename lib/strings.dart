@@ -28,6 +28,8 @@ String sDayFour = 'اليوم الرابع';
 String sDayFive = 'اليوم الخامس';
 String sDaySix = 'اليوم السادس';
 String sDaySeven = 'اليوم السابع';
+String sTrainingDay = 'يوم تمرين';
+String sRestDay = 'يوم راحة';
 
 /// ****************************Validators Strings******************************/
 String sPleaseEnterText = "الرجاء تعبئة الخانة";

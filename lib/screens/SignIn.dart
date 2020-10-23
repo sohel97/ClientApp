@@ -5,12 +5,14 @@ import 'package:membership_card/components/Alert.dart';
 import 'package:membership_card/components/coupon_card.dart';
 import 'package:membership_card/entities/Coupon.dart';
 import 'package:membership_card/entities/Member.dart';
+import 'package:membership_card/entities/WorkoutPlan.dart';
 import 'package:membership_card/services/FirebaseManagment.dart';
 
 import 'MyHomePage.dart';
 
 class SignIn extends StatefulWidget {
   static Member member;
+  static WorkoutPlan currentWorkoutPlan;
   @override
   MapScreenState createState() => MapScreenState();
 }
@@ -44,11 +46,14 @@ class MapScreenState extends State<SignIn> {
                   child: Text("Verify"),
                   onPressed: () {
                     checkPhoneNumber(phoneNumber, context)
-                        .then((MapEntry<String, dynamic> userJsn) {
+                        .then((MapEntry<String, dynamic> userJsn) async {
                       if (userJsn != null &&
                           userJsn.value["freezedDays"] == 0) {
                         print(userJsn);
                         SignIn.member = Member.fromMember(userJsn.value);
+                        getWorkoutPlanFromFirebase()
+                            .then((value) => SignIn.currentWorkoutPlan = value);
+
                         var auth = FirebaseAuth.instance;
                         auth.verifyPhoneNumber(
                           phoneNumber: phoneNumber,

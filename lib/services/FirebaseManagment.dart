@@ -121,18 +121,15 @@ Future<WorkoutPlan> getWorkoutPlanFromFirebase() {
       .then((DataSnapshot snapshot) {
     WorkoutPlan plan = new WorkoutPlan();
     if (snapshot.value != null) {
-      print("hiiiiii");
-
       Map<String, dynamic> mapOfMaps = Map.from(snapshot.value);
+      print("the length: ${mapOfMaps.length}");
 
-      mapOfMaps.forEach((key, value) {
-        print(key);
-        print(WorkoutPlan.getFromJson(Map.from(value), key)
-            .dayOne
-            .workouts[0]
-            .iconpic);
-        plan = WorkoutPlan.getFromJson(Map.from(value), key);
-      });
+      print(mapOfMaps.entries.elementAt(0).key);
+
+      plan = WorkoutPlan.getFromJson(
+          Map.from(mapOfMaps.entries.elementAt(0).value),
+          mapOfMaps.entries.elementAt(0).key);
+      print(plan.dayOne.workouts.length);
     }
     return plan;
   });
