@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        leading: new Container(),
         title: new Text(
           sAppName,
           textDirection: TextDirection.rtl,
