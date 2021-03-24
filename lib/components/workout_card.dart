@@ -6,7 +6,7 @@ import 'package:membership_card/entities/WorkoutDay.dart';
 import 'package:membership_card/entities/WorkoutMuscleItem.dart';
 
 class WorkoutCard extends StatelessWidget {
-  WorkoutCard({@required this.workout});
+  WorkoutCard({ this.workout});
   final WorkoutMuscleItem workout;
 
   @override
@@ -29,7 +29,7 @@ class WorkoutCard extends StatelessWidget {
 }
 
 class WorkoutList extends StatelessWidget {
-  WorkoutList({@required this.workoutDay});
+  WorkoutList({ this.workoutDay});
   final WorkoutDay workoutDay;
 
   @override

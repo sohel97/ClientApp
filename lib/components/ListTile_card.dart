@@ -8,11 +8,7 @@ class ListTileCard extends StatelessWidget {
   final String content;
   final String title;
 
-  ListTileCard(
-      {@required this.img,
-      @required this.title,
-      @required this.content,
-      @required this.leftNote});
+  ListTileCard({this.img, this.title, this.content, this.leftNote});
 
   @override
   Widget build(BuildContext context) {

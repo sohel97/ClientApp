@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:membership_card/components/showWorkoutAlert.dart';
 import 'package:membership_card/entities/Workout.dart';
@@ -10,7 +12,6 @@ import '../strings.dart';
 // ignore: must_be_immutable
 class WorkoutDayPage extends StatefulWidget {
   WorkoutDay workoutDay;
-  AnimationController animationController;
   WorkoutDayPage({Key key, this.workoutDay}) : super(key: key);
   @override
   _WorkoutDayPageState createState() => _WorkoutDayPageState();
@@ -57,10 +58,17 @@ class _WorkoutDayPageState extends State<WorkoutDayPage> {
                     workoutMuscleItem.workouts.map<Widget>((Workout workout) {
                   return ListTile(
                     onTap: () {
-                      showWorkoutAlert(context: context, img: workout.gifPath);
+                      showWorkoutAlert(
+                          context: context,
+                          img: workout.gifPath.split('|')[1] != null
+                              ? workout.gifPath.split('|')[1]
+                              : workout.gifPath);
                     },
                     title: Text(workout.workoutName),
-                    leading: Image.asset(workout.gifPath),
+                    leading: Image.file(new File(
+                        workout.gifPath.split('|')[1] != null
+                            ? workout.gifPath.split('|')[1]
+                            : workout.gifPath)),
                     trailing: Text(workout.sideNote),
                     subtitle: Text(workout.content),
                   );

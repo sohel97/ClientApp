@@ -19,25 +19,28 @@ import 'Workout.dart';
 /---------------------------------------------------------------------------- */
 
 class WorkoutMuscleItem {
-  bool isExpanded;
-  String header;
-  List<Workout> workouts = new List<Workout>();
-  String iconpic;
-  WorkoutType type;
-  WorkoutMuscleItem(
-      {@required this.header, @required this.iconpic, @required this.type}) {
+  bool isExpanded = true;
+  String header = '';
+  List<Workout> workouts = <Workout>[];
+  String iconpic = '';
+  WorkoutType type = WorkoutType.Arms;
+  WorkoutMuscleItem({this.header, this.iconpic, this.type}) {
     this.isExpanded = false;
-    this.workouts = new List<Workout>();
+    this.workouts = <Workout>[];
   }
 
   WorkoutMuscleItem.getFromJson(var json) {
     isExpanded = json["isExpanded"];
     header = json["header"];
-    this.workouts = new List<Workout>();
+    this.workouts = <Workout>[];
     var workouts = json["workouts"];
     if (workouts != null) {
       workouts.forEach((value) {
-        if (value != null) this.workouts.add(new Workout.getFromJson(value));
+        if (value != null) {
+          Workout newWorkout = new Workout.getFromJson(value);
+          newWorkout.getURLAndLocalPath(value);
+          this.workouts.add(newWorkout);
+        }
       });
     }
 

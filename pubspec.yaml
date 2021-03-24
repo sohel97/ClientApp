@@ -25,9 +25,13 @@ dependencies:
     sdk: flutter
   firebase_core: ^0.5.0
   firebase_database: ^4.0.0
+  firebase_auth_web: ^0.3.1+2
   firebase_auth: ^0.18.0+1
-  flutter_localizations:
-    sdk: flutter
+  enum_to_string: ^2.0.1
+  flutter_cache_manager: ^2.1.2
+
+  flutter_cache_manager_firebase: ^1.0.1
+
   font_awesome_flutter: ^8.8.1
   flutter_open_whatsapp: ^0.1.2
   # The following adds the Cupertino Icons font to your application.

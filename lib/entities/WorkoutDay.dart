@@ -17,12 +17,12 @@ import 'WorkoutMuscleItem.dart';
 |  31-Aug-20 Alpha    Sohel   $$1     Created
 /---------------------------------------------------------------------------- */
 class WorkoutDay {
-  List<WorkoutMuscleItem> workouts = new List<WorkoutMuscleItem>();
-  bool restDay;
+  List<WorkoutMuscleItem> workouts = <WorkoutMuscleItem>[];
+  bool restDay = true;
   WorkoutDay() {
     //TODO add names to String.dart
     restDay = false;
-    workouts = new List<WorkoutMuscleItem>();
+    workouts = <WorkoutMuscleItem>[];
     workouts.add(new WorkoutMuscleItem(
       header: 'shouldersWorkouts',
       iconpic: 'assets/images/shoulders.png',

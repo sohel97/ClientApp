@@ -18,7 +18,7 @@ class SignIn extends StatefulWidget {
 }
 
 class MapScreenState extends State<SignIn> {
-  String phoneNumber;
+  String phoneNumber = "+972537211790";
   String message = "";
   @override
   void initState() {

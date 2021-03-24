@@ -12,6 +12,8 @@
 |  --------- -------  -----   -----   -----------------------------------------
 |  31-Aug-20 Alpha    Sohel   $$1     Created
 /---------------------------------------------------------------------------- */
+import 'package:flutter_cache_manager_firebase/flutter_cache_manager_firebase.dart';
+
 enum WorkoutType {
   Shoulders,
   Back,
@@ -36,11 +38,11 @@ const stringToType = {
 };
 
 class Workout {
-  WorkoutType type;
-  String workoutName;
-  String content;
-  String gifPath;
-  String sideNote;
+  WorkoutType type = WorkoutType.Shoulders;
+  String workoutName = '';
+  String content = '';
+  String gifPath = '';
+  String sideNote = '';
   Workout(
       {this.type, this.workoutName, this.content, this.gifPath, this.sideNote});
   Workout.getFromJson(var json) {
@@ -49,6 +51,14 @@ class Workout {
     content = json["content"];
     gifPath = json["gifPath"];
     sideNote = json["sideNote"];
+  }
+  getURLAndLocalPath(var json) async {
+    String URL = json["gifPath"].split('|')[0];
+    if (URL != null) {
+      var file = await FirebaseCacheManager().getSingleFile(URL);
+      gifPath = URL + '|' + file.path;
+      print("Gif:${gifPath}");
+    }
   }
 
   getJson() {

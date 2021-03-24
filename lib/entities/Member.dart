@@ -6,26 +6,26 @@ enum Gender {
 }
 
 class Member {
-  String firstName;
-  String lastName;
-  String phoneNumber;
-  String city;
-  Gender gender;
-  int currentWeight;
-  int requestedWeight;
-  int height;
-  DateTime birthDate;
-  DateTime membershipStartDate;
-  DateTime membershipEndDate;
-  String idNumber;
-  List<PaymentRecord> paymentRecords;
+  String firstName = '';
+  String lastName = '';
+  String phoneNumber = '';
+  String city = '';
+  Gender gender = Gender.male;
+  int currentWeight = 0;
+  int requestedWeight = 0;
+  int height = 0;
+  DateTime birthDate = new DateTime(2021);
+  DateTime membershipStartDate = new DateTime(2021);
+  DateTime membershipEndDate = new DateTime(2021);
+  String idNumber = '';
+  List<PaymentRecord> paymentRecords = <PaymentRecord>[];
   int currentBalance = 0;
-  bool healthCareApproval;
-  String bmi;
-  int earnedCredits;
+  bool healthCareApproval = true;
+  String bmi = '';
+  int earnedCredits = 0;
 
   Member() {
-    this.paymentRecords = new List<PaymentRecord>();
+    this.paymentRecords = <PaymentRecord>[];
     this.height = 180;
     this.currentWeight = 80;
     this.requestedWeight = 80;
@@ -33,7 +33,7 @@ class Member {
   }
 
   Member.fromMember(var json) {
-    this.paymentRecords = new List<PaymentRecord>();
+    this.paymentRecords = <PaymentRecord>[];
     this.firstName = json["firstName"];
     this.lastName = json["lastName"];
     this.phoneNumber = json["phoneNumber"];
@@ -137,11 +137,11 @@ class PaymentRecord {
   String note = '';
   DateTime dateTime = DateTime.now();
   PaymentRecord(
-      {this.note,
-      this.requestedPrice,
-      this.paidPrice,
-      this.balance,
-      this.dateTime});
+      { this.note,
+       this.requestedPrice,
+       this.paidPrice,
+       this.balance,
+       this.dateTime});
 
   getKey() {
     var key = dateTime.year.toString() +

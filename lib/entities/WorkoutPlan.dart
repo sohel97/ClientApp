@@ -22,18 +22,18 @@ class WorkoutPlan {
   String planner = "planner";
   String planName = "";
   String planDescription = "";
-  WorkoutDay dayOne;
-  WorkoutDay dayTwo;
-  WorkoutDay dayThree;
-  WorkoutDay dayFour;
-  WorkoutDay dayFive;
-  WorkoutDay daySix;
-  WorkoutDay daySeven;
+  WorkoutDay dayOne = new WorkoutDay();
+  WorkoutDay dayTwo = new WorkoutDay();
+  WorkoutDay dayThree = new WorkoutDay();
+  WorkoutDay dayFour = new WorkoutDay();
+  WorkoutDay dayFive = new WorkoutDay();
+  WorkoutDay daySix = new WorkoutDay();
+  WorkoutDay daySeven = new WorkoutDay();
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
   int duration = 0;
   String key = "";
-  WorkoutPlan({this.planName, int days = 30}) {
+  WorkoutPlan({ this.planName, int days = 30}) {
     dayOne = new WorkoutDay();
     dayTwo = new WorkoutDay();
     dayThree = new WorkoutDay();

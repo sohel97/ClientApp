@@ -13,7 +13,7 @@ class EarnedCridts extends StatefulWidget {
 }
 
 class MapScreenState extends State<EarnedCridts> {
-  Member member;
+  Member member = new Member();
   @override
   void initState() {
     coupons = getCouponsFromFirebase();
@@ -22,7 +22,7 @@ class MapScreenState extends State<EarnedCridts> {
     super.initState();
   }
 
-  List<Coupon> coupons;
+  List<Coupon> coupons = <Coupon>[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
